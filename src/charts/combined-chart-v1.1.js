@@ -369,12 +369,6 @@ export default function CombinedChart(props){
         .attr("class", "bar")
         .style("fill", "steelblue")
         .attr("x", function(d) { 
-            console.log(
-              'x', chart2.xScale(d.date), 
-              'y',  chart2.yScale(d.volume),
-              'width', chart2.xScale.bandwidth(),
-              'height', chart2.yScale(d.volume)            
-            );
             return chart2.xScale(d.date); })
         .attr("y", function(d) {  return chart2.yScale(d.volume); })
         .attr("width", chart2.xScale.bandwidth())
