@@ -2,8 +2,6 @@ import React, { Fragment,  useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import axios from 'axios';
 import { STOCK_LIST_ITEM_URL, safeHeaders } from './api-config';
 import Table from '@material-ui/core/Table';
@@ -13,9 +11,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import moment from 'moment';
 import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 

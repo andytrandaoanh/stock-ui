@@ -7,16 +7,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import { Link as RouterLink } from 'react-router-dom';
-import EditIcon from '@material-ui/icons/Edit';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
 import { INDEX_DATA_FILE_URL, INDEX_FILE_PROCESS_URL, safeHeaders } from './api-config.js';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 
 
 

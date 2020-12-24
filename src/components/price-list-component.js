@@ -1,15 +1,15 @@
 import React, { Fragment,  useState, useEffect } from 'react';
 import axios from 'axios';
-import { INDEX_LIST_URL , safeHeaders} from './api-config.js';
+import { PRICE_LIST_URL, STOCK_LIST_URL, safeHeaders } from './api-config.js';
 import styled from 'styled-components';
 import NumberFormat from 'react-number-format';
 import { Link as RouterLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { CgArrowLeft } from 'react-icons/cg';
 import { CgArrowLongDown} from 'react-icons/cg';
 import { CgArrowLongUp } from 'react-icons/cg';
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -91,20 +91,20 @@ const StyledTableCell = (props) =>{
   }
   else if (percentage <= 1.0 && percentage > 0.0) {
     cellStyle = styles.mediumHigh;
-    cellSymbol =  <CgArrowLongUp />;   
+    cellSymbol = <CgArrowLongUp />;   
   }
   else if (percentage < 0.0 && percentage > - 1.0){
     cellStyle = styles.mediumLow;
-    cellSymbol = <CgArrowLongDown />;   
+    cellSymbol = < CgArrowLongDown />;   
   }
 
   else {
     cellStyle = styles.low;
-    cellSymbol = <CgArrowLongDown />;   
+    cellSymbol = < CgArrowLongDown />;   
   }
 
   if (props.type === 'ticker') 
-  return  <td style={styles.ticker}><RouterLink to={`/indextransactions/${props.value}`}>{props.value}</RouterLink></td>
+  return  <td style={styles.ticker}><RouterLink to={`/transactions/${props.value}`}>{props.value}</RouterLink></td>
   else
 
       return (
@@ -114,10 +114,10 @@ const StyledTableCell = (props) =>{
       <span>{cellSymbol}</span>
           
           <NumberFormat 
-          value={props.value} 
+          value={props.value *1000} 
           displayType={'text'} 
           thousandSeparator={true} 
-          decimalScale = {2}
+          decimalScale = {0}
           prefix={''} />
           </td>
       )  
@@ -170,18 +170,30 @@ const Styles = styled.div`
   li span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
 `
 
-function IndexValueTable(props) {
+function StockPriceTable(props) {
   const classes = useStyles();
   const [volumeData, setVolumeData] = useState([]);
   const [volumeColumns, setVolumeColumns] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-
+  const [listData, setListData] = useState([]);
+  const [isListLoading, setIsListLoading] = useState(false);
+  const [isListError, setIsListError] = useState(false);
   
 
+  const generateStockLists = () => 
+    
+    <div>
+
+            {listData.map((list)=>
+        
+                <Button key={list.list_id} color="inherit" component={RouterLink} to={`/prices/list/${list.list_id}`}>{list.list_name}</Button>
+
+            )}
+    </div>
 
   const generateHeader = () => 
-        <tr key="index-value-list-headers">
+        <tr>
             {volumeColumns.map((item)=>
                 <th key={item.Header}>{item.Header}</th>
             )}
@@ -192,10 +204,10 @@ function IndexValueTable(props) {
 
     <tbody>
         {volumeData.map((row, rowIndex)=>
-          <tr key={`${row.ticker}-value`}>
+          <tr key={row.ticker}>
             {volumeColumns.map((col, colIndex)=>
               <StyledTableCell 
-              key = {row.ticker + colIndex}
+              key={row.ticker + colIndex}
               value={row[col.accessor]} 
               type={col.accessor} 
               row={rowIndex} 
@@ -223,11 +235,11 @@ function IndexValueTable(props) {
       setIsLoading(true);
 
         try {
-        const result = await axios.get(`${INDEX_LIST_URL}/value`, safeHeaders);
-        //console.log('api url', `${INDEX_LIST_URL}/value`);
+        const result = await axios.get(`${PRICE_LIST_URL}/${props.listId}`, safeHeaders);
+        //console.log('api url', `${PRICE_LIST_URL}/${props.listId}`);
         setVolumeData(result.data.data);
         setVolumeColumns(result.data.columns);
-        //console.log('data.data:', result.data.data);
+        //console.log('data.data:', result.data.columns);
       } catch (error) {
         setIsError(true);
         console.log('error:', error);
@@ -238,23 +250,46 @@ function IndexValueTable(props) {
  
     };
  
+    const fetchLists = async () => {
+      setIsListError(false);
+      setIsListLoading(true);
+
+        try {
+        const result = await axios.get(STOCK_LIST_URL, safeHeaders);        
+        setListData(result.data);
+        //console.log('list data:', result.data);
+      } catch (error) {
+        setIsListError(true);
+        console.log('error:', error);
+      }
+
+      setIsListLoading(false);
+      
+ 
+    };
+ 
 
 
+
+    fetchLists();
     fetchData();
     
-  }, []);  
+  }, [props.listId]);  
 
 
   return (
 
 <Fragment>
- 
+  {isListError && <div>Something went wrong when loading API list data ...</div>}
+  {isListLoading ? ( <div>Loading List...</div>) : ( <div>{generateStockLists()}</div>)}
+
+
   {isError && <div>Something went wrong when loading API data ...</div>}
     {isLoading ? ( <div className={classes.root}><CircularProgress />    
     </div>) : (
      <Styles>
         <table>
-            <caption>VALUE LIST</caption>
+            <caption>PRICE LIST</caption>
 
         <thead>
             {generateHeader()}
@@ -277,4 +312,4 @@ function IndexValueTable(props) {
   )
 }
 
-export default IndexValueTable;
+export default StockPriceTable
