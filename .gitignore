@@ -8,5 +8,9 @@
 
 # misc
 .env
+firebase-config.js
 
-
+.firebase/
+.firebaserc
+.github/
+firebase.json

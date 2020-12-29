@@ -3,14 +3,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from 'styled-components';
 import axios from 'axios';
-import { INDEX_TRANSACTIONS_URL, WEB_SCRAPERS_URL,safeHeaders } from './api-config.js';
+import { INDEX_TRANSACTIONS_URL, WEB_SCRAPERS_URL, safeHeaders } from './api-config.js';
 
 const Styles = styled.div`
 .container {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
-    width: 50%;
+    width: 80%;
     margin: auto;
    
   }
@@ -25,20 +25,20 @@ const Styles = styled.div`
 
 .col-25 {
   float: left;
-  width: 35%;
+  width: 25%;
   margin-top: 6px;
 }
 
 
 .col-75 {
   float: left;
-  width: 65%;
+  width: 75%;
   margin-top: 6px;
 }
 
 
 input[type=text], select, textarea{
-    width: 60%;
+    width: 100px;
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -84,7 +84,6 @@ label {
   font-size: 14px; 
   cursor: pointer; 
   border-radius: 3px;
-  width: 80px;
   margin-left: 5px;
 
 }
@@ -99,6 +98,9 @@ label {
 `
 
 
+
+
+
 const AddStockData = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [ticker, setTicker] = useState('');
@@ -109,6 +111,65 @@ const AddStockData = () => {
     const [volume, setVolume] = useState(0);
     const [updateMessage, setUpdateMessage] = useState(null);
  
+    const stripComma = (input) => {
+      return (input.replaceAll(',', ''))
+
+    }
+
+    const sendGetRequest2 = async (symbol) => {
+
+    
+      let date = getCombinedDate();
+      try {
+        const resp = await axios.get(`${WEB_SCRAPERS_URL}?site=cophieu68&date=${date}&ticker=${symbol}`, safeHeaders);
+        //console.log(resp.data);
+        setHigh(stripComma(resp.data.high));
+        setLow(stripComma(resp.data.low));
+        setOpen(stripComma(resp.data.open));
+        setClose(stripComma(resp.data.close));
+        setVolume(stripComma(resp.data.volume));
+        
+        
+        
+
+        setUpdateMessage(`Data sucessfully scraped for ticker
+         ${resp.data.ticker} for  ${resp.data.date}`);
+        //history.push(`/home`);
+  
+      } catch (err) {
+        // Handle Error Here
+        console.error(err);
+        setUpdateMessage('Error encountered while scraping web site!');
+      }
+  
+    }
+
+
+      
+    
+    
+    const handleScrape = (symbol) =>{
+
+      switch(symbol) {
+        case '^VNINDEX':
+          setTicker('VNINDEX');
+          break;
+        case '^HASTC':
+          setTicker('HNX-INDEX');
+          break;
+        case '^UPCOM':
+            setTicker('UPCOM-INDEX');
+            break;
+        case '^VN30':
+            setTicker('VN30INDEX');
+            break;
+      } 
+  
+      sendGetRequest2(symbol);
+
+    }
+    
+    
     const getCombinedDate = () =>{
       const datePart = startDate.getDate().toString().padStart(2, '0');
       //console.log('date part', datePart);
@@ -225,6 +286,19 @@ const AddStockData = () => {
                     value={ticker} 
                     onChange={(event)=>setTicker(event.target.value)}
                     />
+
+                <button   type="button" className="btn-small"
+                  onClick={(event) => handleScrape('^VNINDEX')} >VNX
+                </button>
+                <button   type="button" className="btn-small"
+                  onClick={(event) => handleScrape('^HASTC')} >HNX
+                </button>
+                <button   type="button" className="btn-small"
+                  onClick={(event) => handleScrape('^UPCOM')} >UPCOM
+                </button>
+                <button   type="button" className="btn-small"
+                  onClick={(event) => handleScrape('^VN30')} >VN30
+                </button>               
                 </div>
             </div>
            
@@ -237,7 +311,7 @@ const AddStockData = () => {
               <button 
                 type="button" 
                 className="btn-small"
-                onClick={handleClick}
+                onClick={(event) => handleClick}
               >Get Data</button>
             </div>
             </div>
