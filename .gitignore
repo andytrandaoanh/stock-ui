@@ -10,3 +10,5 @@
 .env
 
 
+#firebase config
+firebase-config.js

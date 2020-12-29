@@ -1,17 +1,13 @@
-
-
-//for firebase, please unrem
-const BASE_URL = "https://api.lemon3erp.vn/financialmarket/api";
-const API_KEY = "XPGKBZ1-TX24ZCM-K1A8T2P-9ZRCK0H";
-
-
-
+/*FOR FIREBASE DEPLOYMENT*/
 /*
-//for dotenv, please unrem
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-const API_KEY = process.env.REACT_APP_API_KEY;
+import {FIREBASE_BASE_URL, FIREBASE_API_KEY} from '../firebase-config';
+const BASE_URL = FIREBASE_BASE_URL;
+const API_KEY = FIREBASE_API_KEY;
 */
 
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 
 export const safeHeaders = {headers: {

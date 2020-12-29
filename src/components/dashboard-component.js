@@ -117,7 +117,7 @@ export default function HomePageComponent() {
     
                 </Typography>
                 
-                <RouterLink to={`/stockdetails/${item.ticker}`} target="_blank">Detail</RouterLink>
+                <RouterLink to={`/stockdetails/${item.ticker}`}>Detail</RouterLink>
 
               </CardContent>
 
