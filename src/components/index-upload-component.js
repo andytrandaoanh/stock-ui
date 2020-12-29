@@ -124,7 +124,7 @@ export default function IndexUploadComponent() {
         
 
         try {
-          const res = await axios.post(
+          await axios.post(
             INDEX_UPLOAD_URL, 
             formData,
             safeHeadersMultiPart

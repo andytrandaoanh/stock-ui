@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import StockPriceTable from '../components/price-list-v2-component';
+import StockPriceTable from '../components/price-list-component';
 
 
 export default function PriceListPage () {

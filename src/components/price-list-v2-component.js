@@ -251,7 +251,7 @@ function StockPriceTable(props) {
       setIsListLoading(true);
 
         try {
-        const result = await axios.get(STOCK_LIST_URL);        
+        const result = await axios.get(STOCK_LIST_URL, safeHeaders);        
         setListData(result.data);
         //console.log('list data:', result.data);
       } catch (error) {
@@ -276,7 +276,7 @@ function StockPriceTable(props) {
   return (
 
 <Fragment>
-    {isListError && <div>Something went wrong when loading API list data ...</div>}
+  {isListError && <div>Something went wrong when loading API list data ...</div>}
   {isListLoading ? ( <div>Loading List...</div>) : ( <div>{generateStockLists()}</div>)}
 
 

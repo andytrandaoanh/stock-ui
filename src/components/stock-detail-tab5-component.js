@@ -95,7 +95,6 @@ export default function StockDetailTab2Component(props) {
   
   
   const [data, setData] = useState(null);
-  const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [ticker, setTicker] = useState('');

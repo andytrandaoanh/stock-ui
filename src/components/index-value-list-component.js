@@ -6,6 +6,11 @@ import NumberFormat from 'react-number-format';
 import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { CgArrowLeft } from 'react-icons/cg';
+import { CgArrowLongDown} from 'react-icons/cg';
+import { CgArrowLongUp } from 'react-icons/cg';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,27 +80,27 @@ const StyledTableCell = (props) =>{
   
   //console.log('percentage', percentage);
   let cellStyle = styles.medium;
-  let cellSymbol = '🡐';
+  let cellSymbol = <CgArrowLeft />;
 
   if (percentage === 0) {
     cellStyle = styles.medium;
   } 
   else if (percentage > 1.0) {
     cellStyle = styles.high;
-    cellSymbol = '🡑';
+    cellSymbol = <CgArrowLongUp />;
   }
   else if (percentage <= 1.0 && percentage > 0.0) {
     cellStyle = styles.mediumHigh;
-    cellSymbol = '🡑';   
+    cellSymbol =  <CgArrowLongUp />;   
   }
   else if (percentage < 0.0 && percentage > - 1.0){
     cellStyle = styles.mediumLow;
-    cellSymbol = '🡓';   
+    cellSymbol = <CgArrowLongDown />;   
   }
 
   else {
     cellStyle = styles.low;
-    cellSymbol = '🡓';   
+    cellSymbol = <CgArrowLongDown />;   
   }
 
   if (props.type === 'ticker') 
