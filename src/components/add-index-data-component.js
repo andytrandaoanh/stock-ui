@@ -277,7 +277,7 @@ const AddStockData = () => {
 
         <div className="row">
                 <div className="col-25">
-                    <label>Ticker</label>
+                    <label>Ticker!! </label>
                 </div>
                 <div className="col-75">
                 <input 
