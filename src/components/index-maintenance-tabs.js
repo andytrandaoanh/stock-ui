@@ -13,9 +13,7 @@ export default function IndexMaintenanceTabs(props) {
           <TabList>
             <Tab>Add Index Data</Tab>
             <Tab>Edit Index Data</Tab>
-            <Tab>Price Chart</Tab>
-            <Tab>Volume Chart</Tab>  
-            <Tab>Maintain Stock</Tab>
+
           </TabList>
       
           <TabPanel>
@@ -25,18 +23,7 @@ export default function IndexMaintenanceTabs(props) {
           <TabPanel>
             <IndexTransEditComponent />
           </TabPanel>
-          <TabPanel>
-
-          </TabPanel> 
-
-          <TabPanel>
-
-          </TabPanel> 
-         
-          <TabPanel>
-           
-  
-          </TabPanel>
+   
         </Tabs>
 
     )
