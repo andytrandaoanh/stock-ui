@@ -13,37 +13,11 @@ const Styles = styled.div`
   width: 100%;
 }
 
-.column-left {
-  float: left;
-  width: 60%;
-}
-
-.column-right {
-  float: left;
-  width: 40%;
-}
-
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-
-.row-title {
-  font-weight: bold;
-  display: inline-block;
-  width: 120px;
-  text-align: left;
-}
-
-
 
 .text-note {
-  width: 90%;
-  height: 120px;
+  width: 98%;
+  margin-bottom: 15px;
+  
 }
 
 
@@ -116,7 +90,7 @@ export default function StockDetailTab1Component(props) {
             {notes.map(item =>{
 
             return(
-            <div key={item.id}>
+            <div key={item.id} className="text-note">
               {item.note}
             </div>)
             })}

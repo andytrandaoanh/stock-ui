@@ -31,15 +31,14 @@ const Styles = styled.div`
 table {
     border-collapse: collapse;
     margin: 10px;
-    padding: 0px 20px
-    font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    font-size: 0.9em;
+
 }
 
 th, td {
-    padding: 12px 15px;
+    padding: 12px;
 
 }
 
@@ -52,7 +51,7 @@ export default function StockData(props) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [backDate, setBackDate] = useState(120);
+    const backDate =120;
 
       
   useEffect(() => {
@@ -99,7 +98,7 @@ export default function StockData(props) {
     };
  
     fetchData();
-  }, [props.ticker, backDate]);  
+  }, [props.ticker]);  
 
     return (
       <Fragment>
