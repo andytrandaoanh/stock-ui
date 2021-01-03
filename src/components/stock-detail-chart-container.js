@@ -69,7 +69,7 @@ function ChartContainer(props) {
         <div>
           {
             props.type === chartTypeCombined ?
-            <CombinedChart width={800} height={260} data={data} />
+            <CombinedChart width={800} height={300} data={data} />
             
           :(
             props.type === chartTypePrice ?
