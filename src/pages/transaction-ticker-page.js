@@ -4,7 +4,7 @@ import TransactionTicker from '../components/transaction-ticker-component';
 
 export default function TransactionTickerPage () {
 	const params = useParams();   
-	return (<TransactionTicker ticker = {params.ticker} />
+	return (<TransactionTicker ticker = {params.ticker} id = {params.id} />
 	
 	)
 

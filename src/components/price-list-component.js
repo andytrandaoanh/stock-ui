@@ -104,7 +104,7 @@ const StyledTableCell = (props) =>{
   }
 
   if (props.type === 'ticker') 
-  return  <td style={styles.ticker}><RouterLink to={`/transactions/${props.value}`}>{props.value}</RouterLink></td>
+  return  <td style={styles.ticker}><RouterLink to={`/transactions/${props.value}/list/${props.listId}`}>{props.value}</RouterLink></td>
   else
 
       return (
@@ -214,6 +214,7 @@ function StockPriceTable(props) {
               column={colIndex}
               rowData = {volumeData}
               colData = {volumeColumns}
+              listId = {props.listId}
               />
             )}
           </tr>

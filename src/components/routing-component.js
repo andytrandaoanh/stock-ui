@@ -34,7 +34,7 @@ export default function RoutingComponent()  {
         <Route path="/indexfiles/list" component={IndexFileListPage} />
         <Route path="/indexupload" component={IndexUploadPage} />
         <Route path="/transvolumes/:ticker" component={VolumeTickerPage} />
-        <Route path="/transactions/:ticker" component={TransactionTickerPage} />
+        <Route path="/transactions/:ticker/list/:id" component={TransactionTickerPage} />
         <Route path="/stockdetails/:ticker" component={StockDetailPage} />
         <Route path="/stockcombined/:ticker" component={StockCombinedPage} />
         <Route path="/stocklists/display/:id" component={StockListDisplayPage} />

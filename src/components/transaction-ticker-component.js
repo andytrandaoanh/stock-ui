@@ -1,7 +1,7 @@
 import React, { Fragment,  useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
-import { TRANSACTIONS_TICKER_URL, safeHeaders } from './api-config.js';
+import { TRANSACTIONS_TICKER_URL, STOCK_LIST_ITEM_URL, safeHeaders } from './api-config.js';
 import ChartContainer from './candlestick-chart-container-v1';
 import styled from 'styled-components';
 
@@ -34,18 +34,63 @@ const Styles = styled.div`
   text-decoration: none;
 }
 
+.chart-box {
+  float: left;
+  width: 96%;
+}
+
+.list-box {
+  margin-top: 20px;
+  width: 4%;
+  float: left;
+}
+
+.link-item {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 5px;
+
+}
+
 `
 
 
 
 export default function TransactionTicker(props) {
+
     const [data, setData] = useState([]);
+    const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     const [backDate, setBackDate] = useState(120);
 
-    
+
+  
+  
   useEffect(() => {
+    const fetchListItemData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+
+      try {
+        const result = await axios.get(`${STOCK_LIST_ITEM_URL}/list/${props.id}`, safeHeaders);
+        console.log('url',`${STOCK_LIST_ITEM_URL}/list/${props.id}`);
+        setItems(result.data);
+        console.log(result.data);
+
+      } catch (error) {
+        setIsError(true);
+        console.log('error:', error);
+      }
+
+      setIsLoading(false);
+      //console.log(result.data);
+ 
+    };
+
+    
+
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
@@ -77,7 +122,8 @@ export default function TransactionTicker(props) {
     };
  
     fetchData();
-  }, [props.ticker, backDate]);  
+    fetchListItemData();
+  }, [props, backDate]);  
 
     return (
       <Fragment>
@@ -98,7 +144,19 @@ export default function TransactionTicker(props) {
 
           </div>
           
+          <div className="chart-box">
           <ChartContainer  data={data} />
+          </div>
+          <div className="list-box"> 
+          {items && items.map(item =>{
+            return(
+              <div>
+              <RouterLink  className="link-item" to={`/transactions/${item.ticker}/list/${item.list_id}`}>{item.ticker}</RouterLink>
+              </div>
+            )
+
+          })}
+          </div>
           </Styles>
     
       )}
