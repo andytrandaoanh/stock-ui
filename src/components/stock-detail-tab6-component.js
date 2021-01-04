@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { STOCK_DETAIL_URL, STOCK_NOTES_URL, safeHeaders } from './api-config';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-
+import { AiOutlineEdit } from "react-icons/ai";
+import { RiChatDeleteLine } from "react-icons/ri";
+import Grid from '@material-ui/core/Grid';
 
 const Styles = styled.div`
 .container {
@@ -375,11 +376,14 @@ export default function StockDetailTab1Component(props) {
       <Styles>
       {isError && <div>Error encountered loading API data ...</div>}
       {isLoading && <div><CircularProgress /></div>}    
+      <Grid container spacing={3}>
+      <Grid item xs={10} md={5}>
       {data &&
         
-          <div className="row">
-            <div className="column-left">
+          
+            
             <div className="container">
+      
             <p><span className="row-title">Symbol</span><span className="row-data">{data.ticker.toUpperCase()}</span></p>
             <p><span className="row-title">Company</span><span className="row-data">{data.company}</span></p>
             <p><span className="row-title">Exchange</span><span className="row-data">{data.exchange}</span></p>
@@ -389,17 +393,30 @@ export default function StockDetailTab1Component(props) {
 
 
           </div>
-          </div>
-          <div className="column-right">
           
-
-
-          </div>
-          </div>
-
-          
-        
       }
+      </Grid>
+      <Grid item xs={10} md={5}>
+         
+          
+          <form className='form-container'>
+            <p>Add/Edit/Remove A Note 
+              <button className="small-button" onClick={(event) => resetButton(event)}>Reset</button></p>
+            <div className='form-control'>
+              <textarea className="text-note" id="note" value={newNote} 
+              onChange={(event)=>setNewNote(event.target.value)}>
+            </textarea></div>
+            <div className='form-control'>
+              <button className={buttonClass} onClick={(event) => handleClick(event)}>{buttonText}
+            </button></div>
+            <div className="message-box">{updateMessage}</div>
+            
+          </form>
+
+          
+        </Grid>
+      
+        <Grid item xs={12} >
 
             {notes && <ul>
                   {notes.map(item =>{
@@ -407,12 +424,14 @@ export default function StockDetailTab1Component(props) {
                   return(
                   <li key={item.id}>
                     {item.note}
+                    <button className="intext-btn" title="edit" onClick={(event) => handeEdit(event, item.id)}><AiOutlineEdit /> </button>
+                    <button  className="intext-btn"  title="delete" onClick={(event) => handeDelete(event, item.id)}><RiChatDeleteLine /></button>
                   </li>)
                   })}
               
               </ul>}
-
-
+          </Grid>
+        </Grid>
     </Styles>        
       );
 

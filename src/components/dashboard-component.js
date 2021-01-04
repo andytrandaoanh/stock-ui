@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     '& > * + *': {
       marginLeft: theme.spacing(2),
     },
-    minWidth: 275,
+    minWidth: 150,
   },
   bullet: {
     display: 'inline-block',
@@ -102,7 +102,7 @@ export default function HomePageComponent() {
                 <Typography className={classes.pos} color="textSecondary">
                 <NumberFormat 
                   className={item.closeChange === 0.0 ? classes.yellowText: (item.closeChange < 0 ? classes.redText: classes.greenText)} 
-                  value={item.close * 1000} displayType={'text'} thousandSeparator={true} /> (  
+                  value={item.close } displayType={'text'} thousandSeparator={true} /> (  
                   
                 <NumberFormat 
                   className={item.closeChange === 0.0 ? classes.yellowText: (item.closeChange < 0 ? classes.redText: classes.greenText)} 
@@ -111,9 +111,7 @@ export default function HomePageComponent() {
                 </Typography>
                 <Typography variant="caption" display="block">
                 
-                <NumberFormat value={item.volume} displayType={'text'} thousandSeparator={true} />  (
-                
-                <NumberFormat value={item.volumeChange * 100} decimalScale={2} displayType={'text'} suffix={'%'}/>)
+                <NumberFormat value={item.volume} displayType={'text'} thousandSeparator={true} />  
     
                 </Typography>
                 
