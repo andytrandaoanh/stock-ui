@@ -8,6 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
@@ -20,9 +21,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import EqualizerIcon from '@material-ui/icons/Equalizer';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -220,41 +219,9 @@ export default function TopAppBar() {
               
             />
           </div>
-          <IconButton
-                aria-label="volume"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"             
-                color="inherit"
-                component={RouterLink} 
-                to="/volumes/list/1"
-              >
-                <EqualizerIcon />
-          </IconButton>
-          <IconButton
-                aria-label="price"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"             
-                color="inherit"
-                component={RouterLink} 
-                to="/prices/list/1"
-              >
-                <AttachMoneyIcon />
-          </IconButton>
-          
-          <IconButton
-                aria-label="price"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"             
-                color="inherit"
-                component={RouterLink} 
-                to="/indexes/list"
-              >
-                <TrendingUpIcon />
-          </IconButton>
-          
-
-          
-          
+          <Button color="inherit" component={RouterLink} to="/volumes/list/1">Volume</Button>
+          <Button color="inherit" component={RouterLink} to="/prices/list/1">Price</Button>
+          <Button color="inherit" component={RouterLink} to="/indexes/list">Index</Button>
         </Toolbar>
         <Drawer anchor="left" open={showMenu} onClose = {()=>setShowMenu(false)}>
             {listMenuItems("left")}
