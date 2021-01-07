@@ -7,6 +7,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { AiOutlineEdit } from "react-icons/ai";
 import { RiChatDeleteLine } from "react-icons/ri";
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Styles = styled.div`
 .container {
@@ -159,6 +162,9 @@ export default function StockDetailTab1Component(props) {
   const [buttonClass, setButtonClass] = useState(buttonClassBlue);
   const [noteId, setNoteId] = useState(null);
   const [updateMessage, setUpdateMessage] = useState(null);
+  const [updateCount, setUpdateCount] = useState(0);
+
+
  
   const getNoteContent = (noteId) =>{
     notes.forEach((item, index) =>{
@@ -203,23 +209,8 @@ export default function StockDetailTab1Component(props) {
       const resp = await axios.delete(`${STOCK_NOTES_URL}/${noteId}`, safeHeaders);
       console.log(resp.data);
 
-      //remove from state array
-      let array = [...notes]; // make a separate copy of the array
-      let itemIndex = null;
-
-      array.forEach((item, index) =>{
-        if (item.id === noteId) {
-          itemIndex = index;
-        }
-
-      })
-
-      array.splice(itemIndex, 1);
-
-      setNotes(array);
-
-
       setUpdateMessage('Data sucessfully written to the database!');
+      setUpdateCount(updateCount + 1);
       
 
       //history.push(`/home`);
@@ -247,19 +238,8 @@ export default function StockDetailTab1Component(props) {
       const resp = await axios.put(`${STOCK_NOTES_URL}/${noteId}`, newData, safeHeaders);
       console.log(resp.data);
       
-      let array = [...notes]; // make a separate copy of the array
-
-      array.forEach((item, index) =>{
-        if (item.id === noteId) {
-          array[index] = newData;
-        }
-
-      })
-
-      setNotes(array);
-      //setData(newData);
-
       setUpdateMessage('Data sucessfully written to the database!');
+      setUpdateCount(updateCount + 1);
       
    
 
@@ -282,7 +262,8 @@ export default function StockDetailTab1Component(props) {
       const resp = await axios.post(STOCK_NOTES_URL, newData, safeHeaders);
       console.log(resp.data);
       setUpdateMessage('Data sucessfully written to the database!');
-      setNotes([...notes, newData]);
+      //setNotes([...notes, newData]);
+      setUpdateCount(updateCount + 1);
       
 
       //history.push(`/home`);
@@ -366,7 +347,7 @@ export default function StockDetailTab1Component(props) {
 
  
     fetchData();
-  }, [props.ticker]);  
+  }, [props, updateCount]);  
 
 
 
@@ -424,8 +405,23 @@ export default function StockDetailTab1Component(props) {
                   return(
                   <li key={item.id}>
                     {item.note}
-                    <button className="intext-btn" title="edit" onClick={(event) => handeEdit(event, item.id)}><AiOutlineEdit /> </button>
-                    <button  className="intext-btn"  title="delete" onClick={(event) => handeDelete(event, item.id)}><RiChatDeleteLine /></button>
+                    <IconButton 
+                      size="small"
+                      aria-label="edit"
+                      onClick={(event) => handeEdit(event, item.id)}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+
+                    <IconButton 
+                      size="small"
+                      aria-label="delete"
+                      onClick={(event) => handeDelete(event, item.id)}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
+
+
                   </li>)
                   })}
               

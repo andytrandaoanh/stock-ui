@@ -2,9 +2,7 @@ import {  Switch,  Route } from "react-router-dom";
 import HomePage from '../pages/home-page';
 import FileUploadPage from '../pages/file-upload-page';
 import FileListPage from '../pages/file-list-page';
-import PriceListPage from '../pages/price-list-page';
-import VolumeListPage from '../pages/volume-list-page';
-import StockListPage from '../pages/stock-list-page';
+import ListContainerPage from '../pages/list-container-page';
 import StockListDisplayPage from '../pages/stock-list-display-page';
 import TransactionTickerPage from '../pages/transaction-ticker-page';
 import VolumeTickerPage from '../pages/volume-ticker-page';
@@ -33,14 +31,12 @@ export default function RoutingComponent()  {
         <Route path="/indexes/list" component={IndexListPage} />
         <Route path="/indexfiles/list" component={IndexFileListPage} />
         <Route path="/indexupload" component={IndexUploadPage} />
+        <Route path="/lists" component={ListContainerPage} />
         <Route path="/transvolumes/:ticker" component={VolumeTickerPage} />
         <Route path="/transactions/:ticker" component={TransactionTickerPage} />
         <Route path="/stockdetails/:ticker" component={StockDetailPage} />
         <Route path="/stockcombined/:ticker" component={StockCombinedPage} />
         <Route path="/stocklists/display/:id" component={StockListDisplayPage} />
-        <Route path="/stocks/list" component={StockListPage} />
-        <Route path="/volumes/list/:id" component={VolumeListPage} />
-        <Route path="/prices/list/:id" component={PriceListPage} />
         <Route path="/files/list" component={FileListPage} />
         <Route path="/upload" component={FileUploadPage} />
         <Route path="/" component={HomePage} />

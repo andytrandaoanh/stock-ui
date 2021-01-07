@@ -134,10 +134,6 @@ export default function TopAppBar() {
 
       </List>
       <Divider />
-      <ListItem button key="menu-item-stock-list" component={RouterLink} to="/stocks/list">
-            <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
-            <ListItemText primary="Stock Lists" />
-        </ListItem>
 
         <ListItem button key="menu-item-upload" component={RouterLink} to="/upload">
             <ListItemIcon><CloudUploadIcon /></ListItemIcon>
@@ -219,8 +215,8 @@ export default function TopAppBar() {
               
             />
           </div>
-          <Button color="inherit" component={RouterLink} to="/volumes/list/1">Volume</Button>
-          <Button color="inherit" component={RouterLink} to="/prices/list/1">Price</Button>
+
+          <Button color="inherit" component={RouterLink} to="/lists">List</Button>
           <Button color="inherit" component={RouterLink} to="/indexes/list">Index</Button>
         </Toolbar>
         <Drawer anchor="left" open={showMenu} onClose = {()=>setShowMenu(false)}>

@@ -166,7 +166,7 @@ const Styles = styled.div`
   li span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
 `
 
-function StockPriceTable(props) {
+export default function PriceListTable() {
   const classes = useStyles();
   const [volumeData, setVolumeData] = useState([]);
   const [volumeColumns, setVolumeColumns] = useState([]);
@@ -175,15 +175,21 @@ function StockPriceTable(props) {
   const [listData, setListData] = useState([]);
   const [isListLoading, setIsListLoading] = useState(false);
   const [isListError, setIsListError] = useState(false);
+  const [listId, setListId] = useState(1);
   
 
   const generateStockLists = () => 
     
     <div>
 
-            {listData.map((list)=>
-        
-                <Button key={list.list_id} color="inherit" component={RouterLink} to={`/prices/list/${list.list_id}`}>{list.list_name}</Button>
+            {listData.map((list)=>        
+                <Button 
+                  key={list.list_id} 
+                  color="inherit" 
+                  onClick = {(event)=>setListId(list.list_id)}
+                >
+                  {list.list_name}
+                </Button>
 
             )}
     </div>
@@ -231,8 +237,8 @@ function StockPriceTable(props) {
       setIsLoading(true);
 
         try {
-        const result = await axios.get(`${PRICE_LIST_URL}/${props.listId}`, safeHeaders);
-        //console.log('api url', `${PRICE_LIST_URL}/${props.listId}`);
+        const result = await axios.get(`${PRICE_LIST_URL}/${listId}`, safeHeaders);
+        //console.log('api url', `${PRICE_LIST_URL}/${listId}`);
         setVolumeData(result.data.data);
         setVolumeColumns(result.data.columns);
         //console.log('data.data:', result.data.columns);
@@ -270,7 +276,7 @@ function StockPriceTable(props) {
     fetchLists();
     fetchData();
     
-  }, [props.listId]);  
+  }, [listId]);  
 
 
   return (
@@ -308,4 +314,3 @@ function StockPriceTable(props) {
   )
 }
 
-export default StockPriceTable
