@@ -9,13 +9,16 @@ import {
 import VolumeListTable from '../components/volume-list-v2-component';
 import PriceListTable from '../components/price-list-v2-component';
 import StockListTable from '../components/stock-list-component';
+import ListItemMobile from '../components/list-item-mobile-component';
+
+
 
 export default function ListContainer() {
 
     return (
 
         <Fragment>
-        
+         <BrowserView>
           <Tabs>
             <TabList>
               <Tab>Price</Tab>
@@ -34,6 +37,23 @@ export default function ListContainer() {
             </TabPanel>
             
             </Tabs>
+          </BrowserView>
+          <MobileView>
+          <Tabs>
+            <TabList>
+              <Tab>Items</Tab>
+              <Tab>Maintain</Tab>
+            </TabList>
+        
+            <TabPanel>
+                <ListItemMobile />
+            </TabPanel>
+            <TabPanel>
+                <StockListTable />
+            </TabPanel>
+            
+            </Tabs>
+          </MobileView>
         </Fragment>
 
     )
