@@ -50,7 +50,7 @@ th, td {
 `
 
 
-export default function StockData(props) {
+export default function ItemDataMobileComponent(props) {
     const classes = useStyles();    
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
