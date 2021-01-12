@@ -104,7 +104,7 @@ const StyledTableCell = (props) =>{
   }
 
   if (props.type === 'ticker') 
-  return  <td style={styles.ticker}><RouterLink to={`/indextransactions/${props.value}`}>{props.value}</RouterLink></td>
+  return  <td style={styles.ticker}>{props.value}</td>
   else
 
       return (

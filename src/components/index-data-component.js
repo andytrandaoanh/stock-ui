@@ -140,12 +140,19 @@ export default function IndexDataComponent(props) {
                         value={item.close} 
                         displayType={'text'} 
                         thousandSeparator={true} 
-                        decimalScale = {0}
+                        decimalScale = {2}
                         prefix={''} />
                       
                       </td>
                       <td className={colorStyle}>
-                          {item.close - item.lastClose}</td>
+                      <NumberFormat 
+                        value={item.close - item.lastClose} 
+                        displayType={'text'} 
+                        thousandSeparator={true} 
+                        decimalScale = {2}
+                        prefix={''} />
+
+                      </td>
                       <td className={colorStyle}>
                       <NumberFormat 
                        suffix={'%'}

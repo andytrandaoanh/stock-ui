@@ -145,7 +145,7 @@ function IndexVolumeTable(props) {
 
       if (props.type === 'ticker') {
        
-        return <td style={styles.ticker}><RouterLink to={`/indexvolumes/${props.value}`}>{props.value}</RouterLink></td>
+        return <td style={styles.ticker}>{props.value}</td>
 
         
  
