@@ -34,7 +34,7 @@ function ChartContainer(props) {
 
     return (
         <div>
-            <Chart width={800} height={300} data={data} />
+            <Chart width={800} height={240} data={data} />
         </div>
     );
 };

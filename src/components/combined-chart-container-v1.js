@@ -29,7 +29,7 @@ function ChartContainer(props) {
 
     return (
         <div>
-            <CombinedChart width={800} height={340} data={data} />
+            <CombinedChart width={800} height={280} data={data} />
             
         </div>
     );

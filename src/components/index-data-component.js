@@ -83,16 +83,16 @@ export default function IndexDataComponent(props) {
             `${INDEX_LIST_URL}/search?ticker=${props.ticker}&mindate=${mindate}`, safeHeaders);
 
 
-        //console.log(result.data);
+        console.log(result.data);
         const rData = result.data.reverse();
         const newData = [];
-        const total = rData.length -1 > 10 ? 10 : rData.length -1 > 10;
+        const total = rData.length -1 > 10 ? 10 : rData.length -1;
         for (let i = 0; i < total ; i ++ ){
 
             let date = moment(rData[i].date).format('DD/MM/YYYY');
             let volume =rData[i].volume;
-            let close = Math.floor(rData[i].close);
-            let lastClose = Math.floor(rData[i+1].close);
+            let close = rData[i].close;
+            let lastClose = rData[i+1].close;
             newData.push({date, volume, close, lastClose})
 
         }
