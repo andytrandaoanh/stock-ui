@@ -58,7 +58,7 @@ export default function DenseTable() {
     } catch (err) {
       // Handle Error Here
       console.error(err);
-      setUpdateMessage('Error encountered while prcessing data!');
+      setUpdateMessage('Error encountered while processing data!');
     }
 
   }
