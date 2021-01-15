@@ -1,14 +1,15 @@
-/*FOR FIREBASE DEPLOYMENT*/
-
+//FIREBASE DEPLOY
+/*
 import {FIREBASE_BASE_URL, FIREBASE_API_KEY} from '../firebase-config';
 const BASE_URL = FIREBASE_BASE_URL;
 const API_KEY = FIREBASE_API_KEY;
+*/
 
 
-/*
+//LOCAL DEV
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
-*/
+
 
 export const safeHeaders = {headers: {
     'x-api-key': `${API_KEY}`
@@ -60,3 +61,5 @@ export const INDEX_TRANSACTIONS_URL = `${BASE_URL}/indexes`;
 export const WEB_SCRAPERS_URL = `${BASE_URL}/webscrapers`;
 
 export const DASHBOARD_TOPMOVERS_URL = `${BASE_URL}/dashboard/topmovers`;
+
+export const SYSTEM_SETTINGS_URL = `${BASE_URL}/sysconfigs`;
