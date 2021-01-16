@@ -4,14 +4,11 @@ import FileUploadPage from '../pages/file-upload-page';
 import FileListPage from '../pages/file-list-page';
 import ListContainerPage from '../pages/list-container-page';
 import StockListDisplayPage from '../pages/stock-list-display-page';
-import TransactionTickerPage from '../pages/transaction-ticker-page';
-import VolumeTickerPage from '../pages/volume-ticker-page';
 import IndexUploadPage from '../pages/index-upload-page';
 import IndexFileListPage from '../pages/index-file-list-page';
 import IndexListPage from '../pages/indexes-list-page';
 import AddStockDataPage from '../pages/add-stock-data-page';
 import AddIndexDataPage from '../pages/add-index-data-page';
-import StockCombinedPage from '../pages/stock-combined-page';
 import StockDetailPage from '../pages/stock-detail-page';
 import SystemSettingPage from '../pages/system-setting-page';
 
@@ -30,10 +27,8 @@ export default function RoutingComponent()  {
         <Route path="/lists" component={ListContainerPage} />
         <Route path="/settings" component={SystemSettingPage} />
         <Route path="/stockdetails/:ticker" component={StockDetailPage} />
-        <Route path="/stockcombined/:ticker" component={StockCombinedPage} />
+        
         <Route path="/stocklists/display/:id" component={StockListDisplayPage} />
-        <Route path="/transvolumes/:ticker" component={VolumeTickerPage} />
-        <Route path="/transactions/:ticker" component={TransactionTickerPage} />               
         <Route path="/upload" component={FileUploadPage} />
         <Route path="/" component={HomePage} />
         

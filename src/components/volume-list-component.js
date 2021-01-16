@@ -164,7 +164,7 @@ export default function StockVolumeTable() {
 
       if (props.type === 'ticker') {
        
-        return <td style={styles.ticker}><RouterLink to={`/transvolumes/${props.value}`}>{props.value}</RouterLink></td>
+        return <td style={styles.ticker}><RouterLink to={`/stockdetails/${props.value}`}>{props.value}</RouterLink></td>
 
         
  
