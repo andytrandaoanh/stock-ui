@@ -1,10 +1,13 @@
 import React, { Fragment,  useState, useEffect } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { VOLUME_LIST_URL, STOCK_LIST_URL, safeHeaders } from './api-config.js';
 import styled from 'styled-components';
 import NumberFormat from 'react-number-format';
 import { Link as RouterLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -12,8 +15,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& > *': {
+      margin: theme.spacing(1),
     },
   },
 }));
@@ -27,8 +32,8 @@ const Styles = styled.div`
     font-size: 11px;
 
     caption {
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 1.25em;
+      color: #1c54b2;
     }
 
     tr {
@@ -71,7 +76,7 @@ const Styles = styled.div`
   li span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }  
 `
 
-export default function StockVolumeTable() {
+export default function StockVolumeTable(props) {
   const classes = useStyles();
   const [volumeData, setVolumeData] = useState([]);
   const [volumeColumns, setVolumeColumns] = useState([]);
@@ -80,7 +85,7 @@ export default function StockVolumeTable() {
   const [listData, setListData] = useState([]);
   const [isListLoading, setIsListLoading] = useState(false);
   const [isListError, setIsListError] = useState(false);
-  const [listId, setListId] = useState(1);
+  const [listName, setListName] = useState('');
     
   
   const highVolume = 5000000;
@@ -133,23 +138,22 @@ export default function StockVolumeTable() {
   }; 
 
   const generateStockLists = () => 
-    
-  <div>
+    <div className={classes.root}>
+      <ButtonGroup size="small" color="primary">
 
-          {listData.map((list)=>
-      
-            
-            <Button 
-              key={list.list_id} 
-              color="inherit" 
-              onClick = {(event)=>setListId(list.list_id)}
-            >
-              {list.list_name}
-            </Button>
+              {listData.map((list)=>        
+                  <Button 
+                    key={list.list_id}                   
+                    component={RouterLink}
+                    to={`/lists/${list.list_id}`}
+                  >
+                    {list.list_name}
+                  </Button>
 
+              )}
+      </ButtonGroup>
+    </div>  
 
-          )}
-  </div>
 
 
   const StyledTableCell = (props) => {
@@ -225,7 +229,7 @@ export default function StockVolumeTable() {
       setIsLoading(true);
 
         try {
-        const result = await axios.get(`${VOLUME_LIST_URL}/${listId}`, safeHeaders);
+        const result = await axios.get(`${VOLUME_LIST_URL}/${props.id}`, safeHeaders);
         setVolumeData(result.data.data);
         setVolumeColumns(result.data.columns);
         //console.log('data.data:', result.data.columns);
@@ -247,6 +251,10 @@ export default function StockVolumeTable() {
         const result = await axios.get(STOCK_LIST_URL, safeHeaders);        
         setListData(result.data);
         //console.log('list data:', result.data);
+        const foundList = result.data.find(item => item.list_id === parseInt(props.id));
+        //console.log('found item:', found);
+        setListName(foundList.list_name.toUpperCase());
+
       } catch (error) {
         setIsListError(true);
         console.log('error:', error);
@@ -261,13 +269,14 @@ export default function StockVolumeTable() {
 
     fetchLists();
     fetchData();
-  }, [listId]);  
+  }, [props.id]);  
 
 
   return (
 
 <Fragment>
-
+  <CssBaseline />
+  <Container fixed>
     {isListError && <div>Something went wrong when loading API list data ...</div>}
     {isListLoading ? ( <div>Loading List...</div>) : ( <div>{generateStockLists()}</div>)}
 
@@ -276,7 +285,7 @@ export default function StockVolumeTable() {
     </div>) : (
     <Styles>
         <table>
-            <caption>VOLUME LIST</caption>
+            <caption>VOLUME LIST "{listName}"</caption>
 
         <thead>
             {generateHeader()}
@@ -295,7 +304,7 @@ export default function StockVolumeTable() {
     </Styles>
     
     )}
-    
+    </Container>
     </Fragment>
   )
 }

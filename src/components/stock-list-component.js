@@ -17,8 +17,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import moment from 'moment';
 import styled from 'styled-components';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import { Link as RouterLink } from 'react-router-dom';
 
 const Styles = styled.div`
   height: 80px;
@@ -38,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      
     },
   },
 }));
@@ -166,7 +164,7 @@ export default function StockListComponent() {
 
     <Fragment>
      
-    <Styles>
+
   
    
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -191,7 +189,7 @@ export default function StockListComponent() {
       </Button>
           <span className='error'>{updateMessage}</span>
     </form>
-    </Styles>
+
 
 
     {isError && <div>Something went wrong when loading API data ...</div>}
@@ -218,10 +216,7 @@ export default function StockListComponent() {
                   
                   <TableCell component="th" scope="row">
                     {row.list_id}
-                    <IconButton  component={RouterLink} to={`/stocklists/display/${row.list_id}`}>
-                  <VisibilityIcon fontSize="small"  color="primary" /></IconButton>                    
-                  
-                  
+                    
                   </TableCell>
                   <TableCell>{row.list_name}</TableCell>
                   <TableCell>{row.status}</TableCell>

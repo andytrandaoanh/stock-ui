@@ -223,7 +223,7 @@ export default function TopAppBar() {
             />
           </div>
 
-          <Button color="inherit" component={RouterLink} to="/lists">List</Button>
+          <Button color="inherit" component={RouterLink} to="/lists/1">List</Button>
           <Button color="inherit" component={RouterLink} to="/indexes/list">Index</Button>
         </Toolbar>
         <Drawer anchor="left" open={showMenu} onClose = {()=>setShowMenu(false)}>

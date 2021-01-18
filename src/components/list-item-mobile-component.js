@@ -6,13 +6,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ItemDataMobile from './item-data-mobile-component';
 import ItemChartContainerMobile from './item-chart-container-mobile';
-
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& > *': {
+      margin: theme.spacing(1),
     },
   },
   symbolHeader: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function ListItemMobileComponent() {
+export default function ListItemMobileComponent(props) {
   const classes = useStyles();
   const [itemData, setItemData] = useState([]); 
   const [isLoading, setIsLoading] = useState(false);
@@ -41,25 +43,21 @@ export default function ListItemMobileComponent() {
   const [listData, setListData] = useState([]);
   const [isListLoading, setIsListLoading] = useState(false);
   const [isListError, setIsListError] = useState(false);
-  const [listId, setListId] = useState(1);
-  
+
 
   const generateStockLists = () => 
-    
-    <div>
-
+  <div >
             {listData.map((list)=>        
-                <Button 
-                  key={list.list_id} 
-                  color="inherit" 
-                  onClick = {(event)=>setListId(list.list_id)}
-                >
-                  {list.list_name}
-                </Button>
+              <Button 
+                key={list.list_id}                   
+                component={RouterLink}
+                to={`/lists/${list.list_id}`}
+              >
+                {list.list_name}
+              </Button>
 
-            )}
-    </div>
-
+          )}  
+</div>  
   
   
   useEffect(() => {
@@ -68,7 +66,7 @@ export default function ListItemMobileComponent() {
       setIsLoading(true);
 
       try {
-        const result = await axios.get(`${STOCK_LIST_ITEM_URL}/list/${listId}`, safeHeaders);
+        const result = await axios.get(`${STOCK_LIST_ITEM_URL}/list/${props.id}`, safeHeaders);
         //console.log('url',`${STOCK_LIST_ITEM_URL}/list/${props.listId}`);
         setItemData(result.data);
         console.log(result.data);
@@ -90,6 +88,8 @@ export default function ListItemMobileComponent() {
         try {
         const result = await axios.get(STOCK_LIST_URL, safeHeaders);        
         setListData(result.data);
+
+
         //console.log('list data:', result.data);
       } catch (error) {
         setIsListError(true);
@@ -107,7 +107,7 @@ export default function ListItemMobileComponent() {
     fetchLists();
     fetchData();
     
-  }, [listId]);  
+  }, [props.id]);  
 
 
   return (
