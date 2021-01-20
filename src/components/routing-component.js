@@ -13,6 +13,7 @@ import AddStockDataPage from '../pages/add-stock-data-page';
 import AddIndexDataPage from '../pages/add-index-data-page';
 import StockCombinedPage from '../pages/stock-combined-page';
 import StockDetailPage from '../pages/stock-detail-page';
+import SystemSettingPage from '../pages/system-setting-page';
 
 
 export default function RoutingComponent()  {
@@ -25,13 +26,14 @@ export default function RoutingComponent()  {
         <Route path="/indexes/list" component={IndexListPage} />
         <Route path="/indexfiles/list" component={IndexFileListPage} />
         <Route path="/indexupload" component={IndexUploadPage} />
+        <Route path="/files/list" component={FileListPage} />
         <Route path="/lists" component={ListContainerPage} />
-        <Route path="/transvolumes/:ticker" component={VolumeTickerPage} />
-        <Route path="/transactions/:ticker" component={TransactionTickerPage} />
+        <Route path="/settings" component={SystemSettingPage} />
         <Route path="/stockdetails/:ticker" component={StockDetailPage} />
         <Route path="/stockcombined/:ticker" component={StockCombinedPage} />
         <Route path="/stocklists/display/:id" component={StockListDisplayPage} />
-        <Route path="/files/list" component={FileListPage} />
+        <Route path="/transvolumes/:ticker" component={VolumeTickerPage} />
+        <Route path="/transactions/:ticker" component={TransactionTickerPage} />               
         <Route path="/upload" component={FileUploadPage} />
         <Route path="/" component={HomePage} />
         

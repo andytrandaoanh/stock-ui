@@ -21,6 +21,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -147,9 +148,6 @@ export default function TopAppBar() {
             <ListItemText primary="Stock Data Files" />
         </ListItem>
 
-
-
-
   
 
         <ListItem button key="menu-item-add-stock" component={RouterLink} to="/addstockdata">
@@ -174,6 +172,15 @@ export default function TopAppBar() {
             <ListItemIcon><PostAddIcon /></ListItemIcon>
             <ListItemText primary="Add Index Data" />
         </ListItem>  
+      </List>
+
+      <Divider />
+      <List>
+        <ListItem button key="menu-item-settings" component={RouterLink} to="/settings">
+            <ListItemIcon><SettingsIcon /></ListItemIcon>
+            <ListItemText primary="Settings" />
+        </ListItem>
+
       </List>
     </div>
   );
