@@ -12,7 +12,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_KEY = process.env.REACT_APP_API_KEY;
 */
 
-
 export const safeHeaders = {headers: {
     'x-api-key': `${API_KEY}`
   }};
@@ -65,3 +64,5 @@ export const WEB_SCRAPERS_URL = `${BASE_URL}/webscrapers`;
 export const DASHBOARD_TOPMOVERS_URL = `${BASE_URL}/dashboard/topmovers`;
 
 export const SYSTEM_SETTINGS_URL = `${BASE_URL}/sysconfigs`;
+
+export const STOCK_PLUNGE_URL = `${BASE_URL}/plunges`;
