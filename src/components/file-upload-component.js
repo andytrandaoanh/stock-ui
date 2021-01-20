@@ -90,9 +90,6 @@ export default function PhotoUploadComponent() {
   const [fileNames, setFileNames] = useState([]);
   const [showButton, setShowButton] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  
-
   
 
 
@@ -151,7 +148,7 @@ export default function PhotoUploadComponent() {
   useEffect(() => {
     const fetchData = async () => {
       setIsError(false);
-      setIsLoading(true);
+
 
         try {
         const result = await axios.get(MAX_TRANS_DATES_URL, safeHeaders);
@@ -162,8 +159,7 @@ export default function PhotoUploadComponent() {
         //console.log('error:', error);
       }
 
-      setIsLoading(false);
-      //console.log(listData);
+
  
     };
  

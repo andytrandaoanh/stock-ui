@@ -38,43 +38,7 @@ export default function CombinedChart(props){
          
 
     }, [props.data]);
-
-    function calculateSMA(data, N) {
-
-      let sma = [];
-      let i = 0;
-      let sum = 0;
-
-      const means = new Array(data.length).fill(NaN);
-      
-      
-      for (let n = Math.min(N - 1, data.length); i < n; ++i) {
-        sum += data[i].volume;
-      }
-
-
-      for (let n = data.length; i < n; ++i) {
-        sum += data[i].volume;
-        means[i] = +d3.format("~f")(sum / N);
-        sum -= data[i - N + 1].volume;
-      }
-      
-      for (let i = 0; i < data.length; ++i) {
-        
-        if (means[i]) {
-          sma.push(
-            { date: data[i].date, 
-              value: means[i]        
-          })
   
-        }
-      }
-      
-      return sma
-      
-
-
-    }
   
     const draw = (data) => {
         const margin = {top: 20, right: 60, bottom: 20, left: 20};
@@ -128,8 +92,7 @@ export default function CombinedChart(props){
         .y1(d => chart1.yScale(d.close))
      
         const blueColor = "#2196f3";
-        const greenColor = "#8bc34a";
-
+        
 
         //defining gradient color for the area graph
         const areaGradient = svg.append("defs")

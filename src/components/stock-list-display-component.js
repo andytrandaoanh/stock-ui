@@ -14,18 +14,9 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { Link as RouterLink } from 'react-router-dom';
 
-const Styles = styled.div`
-  height: 80px;
-  width: 98%;
-  margin: 10px auto;
-  border: solid 1px gray;
-  .error {
-    font-size: 12px;
-    color: #2196f3;
-  }
-
-`
 
 
 
@@ -33,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+     
     },
   },
 }));
@@ -135,8 +126,6 @@ export default function StockDisplayComponent(props) {
 
     <Fragment>
      
-    <Styles>
-  
    
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
       <TextField id="ticker" label="Stock Symbol" value={ticker}  onChange={(event)=>setTicker(event.target.value)}/>
@@ -147,7 +136,7 @@ export default function StockDisplayComponent(props) {
 
           <span className='error'>{updateMessage}</span>
     </form>
-    </Styles>
+
 
 
     {isError && <div>Something went wrong when loading API data ...</div>}
@@ -172,7 +161,11 @@ export default function StockDisplayComponent(props) {
                   
                   
                   <TableCell component="th" scope="row">
-                    {row.ticker}                                      
+                    {row.ticker}        
+                    <IconButton  component={RouterLink} to={`/stockdetails/${row.ticker}`}>
+                  <VisibilityIcon fontSize="small"  color="primary" /></IconButton>  
+
+
                   </TableCell>
                   <TableCell>{row.company}</TableCell>
                   <TableCell>{row.industry}</TableCell>

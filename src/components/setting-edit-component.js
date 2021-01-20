@@ -18,7 +18,6 @@ const Styles = styled.div`
   width: 35%;
   margin: 0px 10px;
   float: left;
-  
 
 }
 
@@ -27,7 +26,7 @@ const Styles = styled.div`
     background-color: #f2f2f2;
     padding: 10px;
     width: 55%;    
-    margin: 0px 10px;
+    margin: 0px 20px;
     float: left;
    
  }
@@ -55,7 +54,7 @@ const Styles = styled.div`
 
 
 input[type=text], select, textarea{
-    width: 95%;
+    width: 80%;
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 4px;
