@@ -12,7 +12,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { Link as RouterLink } from 'react-router-dom';

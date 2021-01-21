@@ -5,6 +5,9 @@ import {BrowserView, MobileView,} from "react-device-detect";
 import { makeStyles } from '@material-ui/core/styles';
 import SettingAddComponent from '../components/setting-add-component';
 import SettingEditComponent from '../components/setting-edit-component';
+import PlungeAddComponent from '../components/plunge-add-component';
+import PlungeEditComponent from '../components/plunge-edit-component';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,13 +29,14 @@ export default function SystemSettingPage() {
       return (
   
           <Fragment>
-           <BrowserView>
+           
             <Tabs>
               <TabList>
               
                 <Tab>Add Key</Tab>
                 <Tab>Edit Keys</Tab>
-  
+                <Tab>Add Plunge</Tab>
+                <Tab>Edit Plunges</Tab>
               </TabList>
           
               <TabPanel>
@@ -43,8 +47,14 @@ export default function SystemSettingPage() {
               <TabPanel>
                 <SettingEditComponent />
               </TabPanel>
+              <TabPanel>
+                <PlungeAddComponent />
+              </TabPanel>              
+              <TabPanel>
+                <PlungeEditComponent />
+              </TabPanel>                  
             </Tabs>
-            </BrowserView>
+          
  
           </Fragment>
   

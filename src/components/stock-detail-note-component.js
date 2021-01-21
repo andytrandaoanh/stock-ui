@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { STOCK_DETAIL_URL, STOCK_NOTES_URL, safeHeaders } from './api-config';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import moment from 'moment';
 
 
 const Styles = styled.div`
@@ -17,8 +17,13 @@ const Styles = styled.div`
 .text-note {
   width: 98%;
   margin-bottom: 15px;
-  
 }
+
+.note-date {
+  color: #777;
+}
+
+
 
 
 `
@@ -39,7 +44,7 @@ export default function StockDetailTab1Component(props) {
       try {
         
         const result = await axios.get(`${STOCK_NOTES_URL}/search?tickerid=${tickerid}`, safeHeaders);
-        console.log('notes', result.data);
+        //console.log('notes', result.data);
         setNotes(result.data);
 
 
@@ -91,7 +96,7 @@ export default function StockDetailTab1Component(props) {
 
             return(
             <div key={item.id} className="text-note">
-              {item.note}
+              {item.note} <span className="note-date">({moment(item.updated_at).format('DD/MM/YYYY')})</span>
             </div>)
             })}
         
