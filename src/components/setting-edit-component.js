@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 import styled from 'styled-components';
 import axios from 'axios';
 import { SYSTEM_SETTINGS_URL, safeHeaders } from './api-config.js';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
