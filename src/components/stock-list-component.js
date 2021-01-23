@@ -17,6 +17,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import moment from 'moment';
 import styled from 'styled-components';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Styles = styled.div`
   height: 80px;
@@ -216,6 +218,9 @@ export default function StockListComponent() {
                   
                   <TableCell component="th" scope="row">
                     {row.list_id}
+                    <IconButton  component={RouterLink} to={`/lists/${row.list_id}`}>
+                  <VisibilityIcon fontSize="small"  color="primary" /></IconButton>  
+
                     
                   </TableCell>
                   <TableCell>{row.list_name}</TableCell>
