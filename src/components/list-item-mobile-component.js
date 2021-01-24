@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ItemDataMobile from './item-data-mobile-component';
-import ItemChartContainerMobile from './item-chart-container-mobile';
+import StockSingleChartMobile from './stock-single-chart-mobile';
 import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -128,7 +128,7 @@ export default function ListItemMobileComponent(props) {
             <div className={classes.symbolDesc}><span>{item.company}</span><span> ({item.exchange})</span></div>
             </div>
             <ItemDataMobile ticker={item.ticker} />
-            <ItemChartContainerMobile ticker={item.ticker} type={'combined'}/>
+            <StockSingleChartMobile ticker={item.ticker} type={'combined'}/>
           </div>
         ) 
       })}

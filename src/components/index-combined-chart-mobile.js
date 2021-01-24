@@ -1,11 +1,61 @@
 import React, { Fragment,  useState, useEffect } from 'react';
 import axios from 'axios';
 import { INDEX_LIST_URL, safeHeaders } from './api-config.js';
-import ChartContainer from './combined-chart-container-v1';
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { makeStyles } from '@material-ui/core/styles';
+import CombinedChart from '../charts/combined-chart-mobile-v1';
+import * as d3 from 'd3';
 
 
+function ChartContainer(props) {
+  const [data, setData] = useState([]);
+    const parseDate = d3.utcParse("%Y-%m-%d");
 
+    const d3Data = [];
+    useEffect(() => {
+    
+      props.data.forEach(d =>{
+        d3Data.push({
+          date : parseDate(d.date), 
+          open: +d.open,            
+          close : +d.close,
+          high: +d.high,
+          low: +d.low,
+          volume: +d.volume
+        });
+
+      setData(d3Data);
+
+      });
+ 
+        
+    }, [props.data]);
+
+
+    return (
+        <div>
+         
+            <CombinedChart width={480} height={420} data={data} />
+            
+            
+        </div>
+    );
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+ 
+    
+  }));
 
 const Styles = styled.div`
 
@@ -37,11 +87,15 @@ const Styles = styled.div`
 
 
 
-export default function TransactionTicker(props) {
+export default function TransactionTicker() {
+    const classes = useStyles(); 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [backDate, setBackDate] = useState(120);
+    const [backDate, setBackDate] = useState(60);
+    const [ticker, setTicker] = useState('VNINDEX');
+    const indexList = ['VNINDEX', 'HNX-INDEX', 'UPCOM-INDEX', 'VN30INDEX'];
+
 
     
   useEffect(() => {
@@ -60,7 +114,7 @@ export default function TransactionTicker(props) {
         console.log('mindate', mindate);
 
         const result = await axios.get(
-          `${INDEX_LIST_URL}/search?ticker=${props.ticker}&mindate=${mindate}`, safeHeaders);
+          `${INDEX_LIST_URL}/search?ticker=${ticker}&mindate=${mindate}`, safeHeaders);
      
         //console.log(result.data);
         setData(result.data);
@@ -76,21 +130,27 @@ export default function TransactionTicker(props) {
     };
  
     fetchData();
-  }, [props.ticker, backDate]);  
+  }, [ticker, backDate]);  
 
     return (
       <Fragment>
       {isError && <div>Something went wrong when loading API data ...</div>}
       {isLoading ? ( <div>Loading ...</div>) : (
           <Styles>
-          <div className="chart-title">{props.ticker.toUpperCase()} {backDate} <span>DAYS</span>
+            <div className={classes.root}>
+              <ButtonGroup color="primary" aria-label="outlined primary button group">
+              {indexList.map(item=>{
+                return <Button onClick={(event)=>setTicker(item)}>{item}</Button>
+              })}
+              </ButtonGroup>
+            </div>
+
+
+          <div className="chart-title">{ticker.toUpperCase()} {backDate} <span>DAYS</span>
+          <button className="chart-button" onClick={()=>{setBackDate(2 * 30)}}>2M</button>
           <button className="chart-button" onClick={()=>{setBackDate(4 * 30)}}>4M</button>
           <button className="chart-button" onClick={()=>{setBackDate(6 * 30)}}>6M</button>
-          <button className="chart-button" onClick={()=>{setBackDate(9 * 30)}}>9M</button>
-          <button className="chart-button" onClick={()=>{setBackDate(12 * 30)}}>12M</button>
-          <button className="chart-button" onClick={()=>{setBackDate(18 * 30)}}>18M</button>
-          <button className="chart-button" onClick={()=>{setBackDate(24 * 30)}}>24M</button>
-         
+          
           </div>
           
           <ChartContainer  data={data} />

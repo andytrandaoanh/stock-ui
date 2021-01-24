@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     '& > * + *': {
       marginLeft: theme.spacing(2),
     },
-    minWidth: 150,
   },
   bullet: {
     display: 'inline-block',
@@ -85,7 +84,7 @@ export default function HomePageComponent() {
       
       (
 
-    <Grid container spacing={3}>
+    <Grid container spacing={0.5}>
       {data.map(item =>{
           
           return (

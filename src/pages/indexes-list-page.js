@@ -90,30 +90,30 @@ export default function ListContainer() {
           <Tabs>
             <TabList>
               <Tab>Data</Tab>          
-              <Tab>Charts</Tab>                  
-              
+              <Tab>Combined</Tab>             
+              <Tab>Value</Tab>          
+              <Tab>Volume</Tab>        
             </TabList>
         
             <TabPanel>
-              <IndexDataComponent ticker = {'VNINDEX'} />
-              <IndexCombinedChartMobile ticker = {'VNINDEX'}/>
-              <IndexDataComponent ticker = {'HNX-INDEX'} />   
-              <IndexCombinedChartMobile ticker = {'HNX-INDEX'}/>  
-              <IndexDataComponent ticker = {'UPCOM-INDEX'} /> 
-              <IndexCombinedChartMobile ticker = {'UPCOM-INDEX'}/>  
-              <IndexDataComponent ticker = {'VN30INDEX'} />   
-              <IndexCombinedChartMobile ticker = {'VN30INDEX'}/>     
+              <IndexDataComponent  />
+     
             </TabPanel>
             <TabPanel>
-              <IndexValueChartMobile ticker = {'VNINDEX'}/>
-              <IndexVolumeChartMobile ticker = {'VNINDEX'}/>
-              <IndexValueChartMobile ticker = {'HNX-INDEX'}/>
-              <IndexVolumeChartMobile ticker = {'HNX-INDEX'}/>
-              <IndexValueChartMobile ticker = {'UPCOM-INDEX'}/>
-              <IndexVolumeChartMobile ticker = {'UPCOM-INDEX'}/>
-              <IndexValueChartMobile ticker = {'VN30INDEX'}/>
-              <IndexVolumeChartMobile ticker = {'VN30INDEX'}/>
+              <IndexCombinedChartMobile  />
+     
             </TabPanel>
+            
+            <TabPanel>
+              <IndexValueChartMobile  />
+     
+            </TabPanel>
+            <TabPanel>
+              <IndexVolumeChartMobile  />
+     
+            </TabPanel>
+
+
 
             </Tabs>
           </MobileView>

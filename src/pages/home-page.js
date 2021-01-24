@@ -1,5 +1,5 @@
-import HomePageComponent from '../components/dashboard-component';
-import GaugeChart from '../components/gauge-chart-container';
+import DashBoardComponent from '../components/dashboard-component';
+import GaugeChartContainer from '../components/gauge-chart-container';
 import PlungeDataComponent from '../components/plunge-data-component';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -18,10 +18,10 @@ export default function HomePage () {
 		</TabList>
 	
 		<TabPanel>
-			<HomePageComponent />
+			<DashBoardComponent />
 		</TabPanel>
 		<TabPanel>
-			<GaugeChart />
+			<GaugeChartContainer />
 		</TabPanel>
 		<TabPanel>
 			<PlungeDataComponent />

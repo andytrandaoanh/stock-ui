@@ -2,14 +2,14 @@ import React, { Fragment,  useState, useEffect } from 'react';
 import axios from 'axios';
 import { TRANSACTIONS_TICKER_URL, safeHeaders } from './api-config.js';
 import styled from 'styled-components';
-import CandleStickChart from '../charts/candlestick-chart-v1.3';
-import CombinedChart from '../charts/combined-chart-v1.1';
-import BarChart from '../charts/bar-chart-v3.1';
+import CandleStickChart from '../charts/candlestick-chart-mobile-v1';
+import CombinedChart from '../charts/combined-chart-mobile-v1';
+import BarChart from '../charts/bar-chart-mobile-v1';
 import * as d3 from 'd3';
 
 const chartTypeCombined = "combined";
 const chartTypePrice = "price";
-
+const chartTypeVolume = "volume";
 
 const Styles = styled.div`
 
@@ -50,10 +50,10 @@ function ChartContainer(props) {
       props.data.forEach(d =>{
         d3Data.push({
           date : parseDate(d.date), 
-          open: +d.open,            
-          close : +d.close,
-          high: +d.high,
-          low: +d.low,
+          open: +d.open * 1000,            
+          close : +d.close * 1000,
+          high: +d.high * 1000,
+          low: +d.low * 1000,
           volume: +d.volume
         });
 
@@ -69,24 +69,24 @@ function ChartContainer(props) {
         <div>
           {
             props.type === chartTypeCombined ?
-            <CombinedChart width={800} height={480} data={data} />
+            <CombinedChart width={480} height={380} data={data} />
             
           :(
             props.type === chartTypePrice ?
-            <CandleStickChart width={800} height={520} data={data} />
+            <CandleStickChart width={480} height={380} data={data} />
             :
-              <BarChart width={800} height={520} data={data} />
+              <BarChart width={480} height={380} data={data} />
           )}
             
         </div>
     );
 };
 
-export default function ItemChartContainerMobile(props) {
+export default function TransactionTicker(props) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [backDate, setBackDate] = useState(120);
+    const [backDate, setBackDate] = useState(60);
 
     
   useEffect(() => {
@@ -129,16 +129,17 @@ export default function ItemChartContainerMobile(props) {
       {isLoading ? ( <div>Loading ...</div>) : (
           <Styles>
           <div className="chart-title">{props.ticker.toUpperCase()} {backDate} <span>DAYS</span>
+          <button className="chart-button" onClick={()=>{setBackDate(2 * 30)}}>2M</button>
           <button className="chart-button" onClick={()=>{setBackDate(4 * 30)}}>4M</button>
           <button className="chart-button" onClick={()=>{setBackDate(6 * 30)}}>6M</button>
-          <button className="chart-button" onClick={()=>{setBackDate(9 * 30)}}>9M</button>
-          <button className="chart-button" onClick={()=>{setBackDate(12 * 30)}}>12M</button>
+         
      
 
 
           </div>
           
-          <ChartContainer  data={data} type={props.type} />
+          <ChartContainer  data={data} type={chartTypePrice} />
+          <ChartContainer  data={data} type={chartTypeVolume} />
           </Styles>
     
       )}

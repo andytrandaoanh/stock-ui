@@ -113,7 +113,7 @@ export default function ItemDataMobileComponent(props) {
                   <tr>
                       <th className={classes.leftCell}>Date</th>
                       <th>Close</th>
-                      <th>Change</th>
+                      <th>+/-</th>
                       <th>Percent</th>
                       <th className={classes.rightCell}>Volume</th>
                       
