@@ -154,7 +154,9 @@ export default function CandleStickChart(props){
       .attr("class", "wick-line")
       .attr("stroke-linecap", "square")
       .attr("stroke-width", x.bandwidth()/10)
-      .attr("stroke", d =>(d.close > d.open ? "green" : "red" ))
+      .attr("stroke", d => d.open > d.close ? d3.schemeSet1[0]
+      : d.close > d.open ? d3.schemeSet1[2]
+      : d3.schemeSet1[5])
       .attr("y1", d => y(d.low))
       .attr("y2", d => y(d.high));
 
@@ -179,7 +181,7 @@ export default function CandleStickChart(props){
       .attr("stroke-width", x.bandwidth())
       .attr("stroke", d => d.open > d.close ? d3.schemeSet1[0]
       : d.close > d.open ? d3.schemeSet1[2]
-      : d3.schemeSet1[8])
+      : d3.schemeSet1[5])
       .on("mouseover", 
       function(event, d){ 
         return (

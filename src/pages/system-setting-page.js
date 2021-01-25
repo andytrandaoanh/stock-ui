@@ -1,7 +1,6 @@
 import React, { Fragment} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import {BrowserView, MobileView,} from "react-device-detect";
 import { makeStyles } from '@material-ui/core/styles';
 import SettingAddComponent from '../components/setting-add-component';
 import SettingEditComponent from '../components/setting-edit-component';

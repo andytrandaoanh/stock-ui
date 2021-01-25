@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import styled from 'styled-components';
 import axios from 'axios';
 import { STOCK_PLUNGE_URL, safeHeaders } from './api-config.js';
-import Checkbox from '@material-ui/core/Checkbox';
+
 
 
 
@@ -146,6 +146,7 @@ const SettingEditComponent = () => {
     const flagDelete = 2;
     const [dateseq, setDateseq] = useState(0);
     const [loss, setLoss] = useState(0.0);    
+    const [last, setLast] = useState(0.0);    
     const [duration, setDuration] = useState(0);
     const [itemId, setItemId] = useState(0);
     const [updateMessage, setUpdateMessage] = useState(null);
@@ -189,6 +190,7 @@ const SettingEditComponent = () => {
           setFlag(flag);
           setLoss(item.loss);
           setDuration(item.duration);
+          setLast(item.last);
         }
 
         if (flag === flagEdit) {
@@ -252,7 +254,8 @@ const SettingEditComponent = () => {
         const sendData = {            
             dateseq: dateseq,
             loss: loss,
-            duration: duration ,
+            duration: duration,
+            last: last
         }
         //console.log(sendData);	  	 
         if (flag === flagEdit) sendPutRequest(sendData);
@@ -283,7 +286,7 @@ const SettingEditComponent = () => {
            
             <div className="form-row">
                 <div className="col-25">
-                    <label>Loss</label>
+                    <label>Loss Index</label>
                 </div>
                 <div className="col-75">
                     <input 
@@ -309,6 +312,19 @@ const SettingEditComponent = () => {
                 </div>
             </div>
 
+            <div className="form-row">
+                <div className="col-25">
+                    <label>Last Index</label>
+                </div>
+                <div className="col-75">
+                    <input 
+                    type="text" 
+                    id = "last"
+                    value={last} 
+                    onChange={(event)=>setLast(event.target.value)}
+                    />
+                </div>
+            </div>
 
             <div className="submit-wrap">
               <button 
@@ -337,8 +353,9 @@ const SettingEditComponent = () => {
        <table>
          <tr>
              <th>Date Sequence</th>
-             <th>Loss</th>
+             <th>Loss Index</th>
              <th>Duration</th>
+             <th>Last Index</th>
              <th>Edit</th>
              <th>Delete</th>
 
@@ -349,6 +366,7 @@ const SettingEditComponent = () => {
               <td>{item.dateseq}</td>              
               <td>{item.loss}</td>
               <td>{item.duration}</td>
+              <td>{item.last}</td>
               <td><button className="btn-small"  onClick={(event)=>{handleItemClick(event, item.id, flagEdit)}}>Edit</button></td>
               <td><button className="btn-small"  onClick={(event)=>{handleItemClick(event, item.id, flagDelete)}}>Delete</button></td>
               </tr>

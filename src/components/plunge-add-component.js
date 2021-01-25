@@ -102,7 +102,8 @@ label {
 export default function PlungeAddComponent()  {
     const [startDate, setStartDate] = useState(new Date());    
     const [duration, setDuration] = useState(0);
-    const [loss, setLoss] = useState(0);
+    const [loss, setLoss] = useState(0.0);
+    const [last, setLast] = useState(0.0);
     const [updateMessage, setUpdateMessage] = useState(null);
 
     const getCombinedDate = () =>{
@@ -145,6 +146,7 @@ export default function PlungeAddComponent()  {
             dateseq: getCombinedDate(),
             duration: duration,
             loss: loss,
+            last: last
 
         }
         //console.log(sendData);	  	  
@@ -170,7 +172,7 @@ export default function PlungeAddComponent()  {
             </div>
             <div class="row">
                 <div class="col-25">
-                    <label>Loss</label>
+                    <label>Loss Index</label>
                 </div>
                 <div class="col-75">
                 <input 
@@ -197,7 +199,19 @@ export default function PlungeAddComponent()  {
                 </div>
             </div>
 
-
+            <div class="row">
+                <div class="col-25">
+                    <label>Last Index</label>
+                </div>
+                <div class="col-75">
+                <input 
+                    type="text" 
+                    id = "last"
+                    value={last} 
+                    onChange={(event)=>setLast(event.target.value)}
+                    />
+                </div>
+            </div>
             <div className="submit-wrap">
               <button 
                 className="btn-red" 

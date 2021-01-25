@@ -2,8 +2,6 @@ import React, { Fragment,  useState, useEffect } from 'react';
 import axios from 'axios';
 import { STOCK_PLUNGE_URL, safeHeaders } from './api-config.js';
 import styled from 'styled-components';
-import moment from 'moment';
-import NumberFormat from 'react-number-format';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -14,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
     redNum: {
         color: 'red',
-        textAlign: 'right',
+        
     },
     yellowNum: {
       color: 'orange',
@@ -46,6 +44,8 @@ th, td {
 
 }
 
+td {text-align: right;}
+
 caption {
     margin: 10px;
     font-size: 1.1em;
@@ -58,8 +58,9 @@ caption {
 export default function PlungeDataComponent(props) {
     const classes = useStyles();    
     const [data, setData] = useState([]);
-    const [averageLoss, setAverageLoss] = useState([0]);
-    const [averageDuration, setAverageDuration] = useState([0]);
+    const [averageLoss, setAverageLoss] = useState([null]);
+    const [averagePercent, setAveragePercent] = useState([null]);
+    const [averageDuration, setAverageDuration] = useState([null]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
     
@@ -82,23 +83,37 @@ export default function PlungeDataComponent(props) {
   
         const result = await axios.get(STOCK_PLUNGE_URL, safeHeaders);
 
-        console.log(result.data);
+        //console.log(result.data);
         
         let totalDuration = 0;
         let totalLoss = 0;
+        let totalPercent = 0;
         let i = 0;
+        let newData = [];
+
         for (i ; i < result.data.length ; i ++ ){
+          let percent = (result.data[i].loss - result.data[i].last) * 100 / result.data[i].last;          
           totalDuration += result.data[i].duration;
-          totalLoss += result.data[i].loss; 
+          totalPercent += percent; 
+          totalLoss += (result.data[i].loss - result.data[i].last);
+          newData.push({
+            dateseq: result.data[i].dateseq,
+            loss: result.data[i].loss,
+            last: result.data[i].last,
+            percent: percent,
+            duration: result.data[i].duration
+            
+          })
+
         }
 
-        setAverageDuration(totalDuration/i);
-        setAverageLoss(totalLoss/i);
+        setAverageDuration(Math.ceil(totalDuration/i));
+        setAveragePercent((totalPercent/i).toFixed(2));
+        setAverageLoss((totalLoss/i).toFixed(2));
 
-        //console.log('average loss', totalLoss/i);
-        //console.log('average duration', totalDuration/i);        
-
-        setData(result.data);
+        
+        setData(newData);
+        setIsLoading(false);
 
 
 
@@ -107,7 +122,7 @@ export default function PlungeDataComponent(props) {
         console.log('error:', error);
       }
 
-      setIsLoading(false);
+     
       //console.log(result.data);
  
     };
@@ -118,45 +133,71 @@ export default function PlungeDataComponent(props) {
     return (
       <Fragment>
       {isError && <div>Something went wrong when loading API data ...</div>}
-      {isLoading ? ( <div>Loading ...</div>) : (
+      {isLoading ?  <div>Loading ...</div> :
+      (
           <Styles>
               
               <table>
                   <caption>{props.ticker}</caption>
                   <tr>
                       <th className={classes.leftCell}>Date</th>
+                      <th>Percent</th>
                       <th>Loss</th>
-                      <th>Duration</th>                      
+                      <th>Days</th>                      
+                      <th>Index</th>  
                       
                       
                   </tr>
               
-              {data && data.map((item, index)=>{
+              {data.map((item, index)=>{
                 
                 return(
                 <tr key={item.id}>
-                      <td>{convertDate(item.dateseq)}</td>
-                      <td><span className={classes.redNum}>{item.loss}%</span></td>
-                      <td>{item.duration}</td>
+                      <td>{convertDate(item.dateseq)}</td>                      
+                      <td className={classes.redNum}>
+                        {item.percent.toFixed(2)}%
+                      </td>
+                      <td className={classes.redNum}>
+                      {(item.loss - item.last).toFixed(2)}
+                                            
+                      </td>
+                      <td><span className={classes.greenNum}>{item.duration}</span></td>
+                      <td>
+                      {item.loss.toFixed(2)}
+                      
+
+                    </td>
                 </tr>
                 )  
                 
-              
 
               })}
 
             <tfoot>
-              <tr>
+              <tr key="footer">
                 <td>Average</td>
-                <td><span className={classes.redNum}>{averageLoss}%</span></td>
-                <td>{averageDuration}</td>
+                <td >
+                  {averagePercent}%
+                      
+
+                </td>
+                <td>
+                {averageLoss}
+                </td>
+                <td>
+                 
+                {averageDuration}
+                  </td>
+                <td></td>
                 
               </tr>
             </tfoot>
-              </table>
+            </table>
           </Styles>
+
+          )}
     
-      )}
+      
     </Fragment>
     )
 }
