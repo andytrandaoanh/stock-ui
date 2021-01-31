@@ -143,29 +143,6 @@ export default function TopAppBar() {
 
       <List>
       
-        <ListItem button key="menu-item-file-list" component={RouterLink} to="/files/list">
-            <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
-            <ListItemText primary="Stock Data Files" />
-        </ListItem>
-
-  
-
-        <ListItem button key="menu-item-add-stock" component={RouterLink} to="/addstockdata">
-            <ListItemIcon><PostAddIcon /></ListItemIcon>
-            <ListItemText primary="Add Stock Data" />
-        </ListItem>  
-
-        <Divider />
-        <ListItem button key="menu-item-index-upload" component={RouterLink} to="/indexupload">
-            <ListItemIcon><CloudUploadIcon /></ListItemIcon>
-            <ListItemText primary="Upload Index Data" />
-        </ListItem>  
-
-        <ListItem button key="menu-item-index-file-list" component={RouterLink} to="/indexfiles/list">
-            <ListItemIcon><FormatListBulletedIcon /></ListItemIcon>
-            <ListItemText primary="Index Data Files" />
-        </ListItem>
-
 
 
         <ListItem button key="menu-item-add-index-data" component={RouterLink} to="/addindexdata">
