@@ -36,7 +36,7 @@ const Styles = styled.div`
 
 
 
-export default function TransactionTicker() {
+export default function IndexCombinedChartComponent() {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);

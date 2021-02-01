@@ -72,13 +72,14 @@ caption {
 
 
 
-export default function IndexDataComponent(props) {
+export default function IndexDataMobileComponent() {
     const classes = useStyles();    
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);    
+    const [isError, setIsError] = useState(false);
+    const [ticker, setTicker] = useState('VNINDEX');
     const backDate = 60;
-    
+    const indexList = ['VNINDEX', 'HNX-INDEX', 'UPCOM-INDEX', 'VN30INDEX'];
 
 
       
@@ -99,7 +100,7 @@ export default function IndexDataComponent(props) {
 
   
         const result = await axios.get(
-            `${INDEX_LIST_URL}/search?ticker=${props.ticker}&mindate=${mindate}`, safeHeaders);
+            `${INDEX_LIST_URL}/search?ticker=${ticker}&mindate=${mindate}`, safeHeaders);
 
 
         console.log(result.data);
@@ -128,20 +129,26 @@ export default function IndexDataComponent(props) {
     };
  
     fetchData();
-  }, [props.ticker]);  
+  }, [ticker]);  
 
     return (
       <Fragment>
       {isError && <div>Something went wrong when loading API data ...</div>}
       {isLoading ? ( <div>Loading ...</div>) : (
           <Styles>
-
+              <div className={classes.root}>
+              <ButtonGroup color="primary" aria-label="outlined primary button group">
+              {indexList.map(item=>{
+                return <Button onClick={(event)=>setTicker(item)}>{item}</Button>
+              })}
+              </ButtonGroup>
+              </div>
               <table>
-                  <caption>{props.ticker}</caption>
+                  <caption>{ticker}</caption>
                   <tr>
                       <th className={classes.leftCell}>Date</th>
                       <th>Close</th>
-                      <th>Change</th>
+                      <th>+/-</th>
                       <th>Percent</th>
                       <th className={classes.rightCell}>Volume</th>
                       

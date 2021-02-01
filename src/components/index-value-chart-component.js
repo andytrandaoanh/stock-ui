@@ -37,7 +37,7 @@ const Styles = styled.div`
 `
 
 
-export default function TransactionTicker() {
+export default function IndexValueChartComponent() {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -105,10 +105,11 @@ export default function TransactionTicker() {
           <Styles>
           {generateButtons()}
           <div className="chart-title">{ticker.toUpperCase()} {backDate} <span>DAYS</span>
-          <button className="chart-button" onClick={()=>{setBackDate(2 * 30)}}>2M</button>
           <button className="chart-button" onClick={()=>{setBackDate(4 * 30)}}>4M</button>
           <button className="chart-button" onClick={()=>{setBackDate(6 * 30)}}>6M</button>
- 
+          <button className="chart-button" onClick={()=>{setBackDate(12 * 30)}}>12M</button>
+          <button className="chart-button" onClick={()=>{setBackDate(18 * 30)}}>18M</button>
+          <button className="chart-button" onClick={()=>{setBackDate(24 * 30)}}>24M</button>
           </div>
           
           <ChartContainer  data={data} />

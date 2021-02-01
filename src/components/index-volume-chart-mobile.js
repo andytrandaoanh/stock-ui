@@ -87,7 +87,7 @@ function ChartContainer(props) {
 };
 
 
-export default function TransactionTicker(props) {
+export default function IndexVolumeChartMobile(props) {
   const classes = useStyles();
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

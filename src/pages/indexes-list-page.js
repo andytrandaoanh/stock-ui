@@ -5,6 +5,7 @@ import {BrowserView, MobileView,} from "react-device-detect";
 import IndexValueTable from '../components/index-value-list-component';
 import IndexVolumeTable from '../components/index-volume-list-component';
 import IndexDataComponent from '../components/index-data-component';
+import IndexDataMobileComponent from '../components/index-data-mobile-component';
 import IndexValueChartMobile from '../components/index-value-chart-mobile';
 import IndexValueChartComponent from '../components/index-value-chart-component';
 import IndexVolumeChartMobile from '../components/index-volume-chart-mobile';
@@ -96,7 +97,7 @@ export default function ListContainer() {
             </TabList>
         
             <TabPanel>
-              <IndexDataComponent  />
+              <IndexDataMobileComponent  />
      
             </TabPanel>
             <TabPanel>

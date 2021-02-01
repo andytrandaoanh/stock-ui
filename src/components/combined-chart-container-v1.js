@@ -12,10 +12,10 @@ function ChartContainer(props) {
       props.data.forEach(d =>{
         d3Data.push({
           date : parseDate(d.date), 
-          open: +d.open * 1000,            
-          close : +d.close  * 1000,
-          high: +d.high  * 1000,
-          low: +d.low  * 1000,
+          open: +d.open,            
+          close : +d.close,
+          high: +d.high,
+          low: +d.low,
           volume: +d.volume
         });
 
