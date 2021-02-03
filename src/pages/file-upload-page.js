@@ -3,6 +3,8 @@ import 'react-tabs/style/react-tabs.css';
 import FileUpload from '../components/file-upload-component';
 import FileList from '../components/file-list-component';
 import MaintainData from '../components/add-stock-data-component';
+import TransEditComponent from '../components/transaction-edit-component';
+
 
 export default function FileUploadPage () {
 
@@ -14,7 +16,8 @@ export default function FileUploadPage () {
 		<TabList>
 		  <Tab>Upload File</Tab>
 		  <Tab>Process File</Tab>
-		  <Tab>Maitain Data</Tab>
+		  <Tab>Add Data</Tab>
+		  <Tab>Edit Data</Tab>
 		</TabList>
 	
 		<TabPanel>
@@ -26,6 +29,11 @@ export default function FileUploadPage () {
 		<TabPanel>
 			<MaintainData />
 		</TabPanel>
+		<TabPanel>
+			<TransEditComponent />
+		</TabPanel>
+
+
 		</Tabs>
 		
 		
