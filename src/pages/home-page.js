@@ -1,4 +1,5 @@
 import DashBoardComponent from '../components/dashboard-component';
+import DashBoardActivePrint from '../components/dashboard-active-print';
 import GaugeChartContainer from '../components/gauge-chart-container';
 import PlungeDataComponent from '../components/plunge-data-component';
 
@@ -15,6 +16,7 @@ export default function HomePage () {
 		  <Tab>Most Active</Tab>
 		  <Tab>Warning</Tab>
 		  <Tab>History</Tab>
+		  <Tab>Print Active</Tab>
 		</TabList>
 	
 		<TabPanel>
@@ -26,6 +28,10 @@ export default function HomePage () {
 		<TabPanel>
 			<PlungeDataComponent />
 		</TabPanel>
+		<TabPanel>
+			<DashBoardActivePrint />
+		</TabPanel>
+
 		</Tabs>
 
 	)
