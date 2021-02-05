@@ -84,7 +84,7 @@ export default function HomePageComponent() {
       
       (
 
-    <Grid container spacing={0.5}>
+    <Grid container spacing={1}>
       {data.map(item =>{
           
           return (

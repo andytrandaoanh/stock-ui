@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { STOCK_DETAIL_URL, STOCK_NOTES_URL, safeHeaders } from './api-config';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { AiOutlineEdit } from "react-icons/ai";
-import { RiChatDeleteLine } from "react-icons/ri";
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';

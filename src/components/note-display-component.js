@@ -11,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import CardActions from '@material-ui/core/CardActions';
 import { Link as RouterLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
@@ -52,8 +51,8 @@ export default function NoteDisplayComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState([]);
-  const [pageCount, setPageCount] = useState(0)
-  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(1);
   const [notes, setNotes] = useState([]);
 
   const handleChange = (event, value) => {
@@ -77,6 +76,7 @@ export default function NoteDisplayComponent() {
         setData(result.data);
         setPageCount(Math.ceil(data.length / PER_PAGE));
         setNotes(result.data.slice(0,PER_PAGE));
+        
         setIsLoading(false);
 
 
@@ -103,13 +103,10 @@ export default function NoteDisplayComponent() {
 
       <Styles>
       {isError && <div>Error encountered loading API data ...</div>}
-      {isLoading && <div><CircularProgress /></div>}    
-   
+      {isLoading ? <div><CircularProgress /></div> :
+      (
 
-      {data && 
-
-
-      <Grid container spacing={0.5}>        
+      <Grid container spacing={1}>        
         {notes.map(item=>{
           
           return(
@@ -122,7 +119,17 @@ export default function NoteDisplayComponent() {
 
                   <Typography variant="h5" component="h2">
                     {item.ticker} 
-                  </Typography>
+                    <IconButton aria-label={`stock detail`} 
+                    fontSize="small" 
+                    component={RouterLink} 
+                    to={`/stockdetails/${item.ticker}`}>
+                    <InfoIcon />
+                  </IconButton>
+
+
+                  </Typography> 
+
+                
                   <Typography className={classes.pos} color="textSecondary">
                   {item.exchange} - {item.company}
                 </Typography>
@@ -132,30 +139,23 @@ export default function NoteDisplayComponent() {
                     {item.note})
                   </Typography>                  
                 </CardContent>
-                <CardActions>
-                  
-                  <IconButton aria-label={`stock detail`} 
-                    component={RouterLink} 
-                    to={`/stockdetails/${item.ticker}`}>
-                  <InfoIcon />
-                </IconButton>
 
-
-                </CardActions>
               </Card>
        
             </Grid>
             )
         })}
 
-
+        <Grid item xs={12} >
+        
         <Pagination count={pageCount}  page={page} onChange={handleChange} />   
         
+        </Grid>
       
       </Grid>
 
         
-      }    
+      )}   
 
     </Styles>        
       );
