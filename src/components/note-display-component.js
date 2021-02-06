@@ -6,7 +6,6 @@ import moment from 'moment';
 import { STOCK_NOTES_URL, safeHeaders } from './api-config';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import Pagination from '@material-ui/lab/Pagination';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import { Link as RouterLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,8 +42,9 @@ const Styles = styled.div`
   color: #777;
 }
 
-
 `
+
+
 export default function NoteDisplayComponent() {
   const classes = useStyles();
   const PER_PAGE = 10;
@@ -58,9 +58,9 @@ export default function NoteDisplayComponent() {
   const handleChange = (event, value) => {
     setPage(value);
     //console.log('page:', value);
-    const indexFrom = (value - 1) * PER_PAGE;
-    const indexTo = value  * PER_PAGE;
-    setNotes(data.slice(indexFrom, indexTo));
+    //const indexFrom = (value - 1) * PER_PAGE;
+    //const indexTo = value  * PER_PAGE;
+    //setNotes(data.slice(indexFrom, indexTo));
   };
 
 
@@ -72,11 +72,10 @@ export default function NoteDisplayComponent() {
       try {
         setIsLoading(true);
         const result = await axios.get(STOCK_NOTES_URL, safeHeaders);
-        //console.log('notes', result.data);
+        console.log('fetching data with length', result.data.length);
         setData(result.data);
-        setPageCount(Math.ceil(data.length / PER_PAGE));
-        setNotes(result.data.slice(0,PER_PAGE));
-        
+        setPageCount(Math.ceil(result.data.length / PER_PAGE));
+        setNotes(result.data.slice((page-1)* PER_PAGE, page * PER_PAGE));
         setIsLoading(false);
 
 
@@ -94,7 +93,7 @@ export default function NoteDisplayComponent() {
     
  
     fetchNotes();
-  }, []);  
+  }, [page]);  
 
 
 
